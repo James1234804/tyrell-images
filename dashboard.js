@@ -1,6 +1,5 @@
  // ============================================
 // TYRELL IMAGES — DASHBOARD BACKEND
-// Supabase config
 // ============================================
 
 const SUPABASE_URL = 'https://vptslajbeatotdgyalff.supabase.co';
@@ -34,7 +33,6 @@ async function loginClient(username, password) {
 
 async function addClient(name, username, password) {
   try {
-    // Check if username already exists
     const { data: existing } = await db
       .from('clients')
       .select('id')
@@ -72,22 +70,17 @@ async function getClients() {
 
 async function removeClient(id) {
   try {
-    // First delete all photos for this client
     const { data: photos } = await db
       .from('photos')
       .select('file_name')
       .eq('client_id', id);
 
     if (photos && photos.length) {
-      // Remove files from storage
       const paths = photos.map(p => p.file_name);
       await db.storage.from('photos').remove(paths);
-
-      // Delete photo records
       await db.from('photos').delete().eq('client_id', id);
     }
 
-    // Delete client
     const { error } = await db.from('clients').delete().eq('id', id);
     if (error) return { success: false, error: error.message };
     return { success: true };
@@ -97,24 +90,37 @@ async function removeClient(id) {
 }
 
 // ============================================
-// PHOTOS
+// PHOTOS — using direct fetch for upload
 // ============================================
 
 async function uploadPhoto(clientId, file) {
   try {
-    const uniqueName = `${clientId}/${Date.now()}_${file.name}`;
+    const uniqueName = `${clientId}/${Date.now()}_${file.name.replace(/\s+/g, '_')}`;
     console.log('Uploading:', uniqueName);
 
-    const { data: storageData, error: storageError } = await db.storage
-      .from('photos')
-      .upload(uniqueName, file, { upsert: true });
+    // Use direct fetch instead of SDK to avoid browser blocking
+    const uploadUrl = `${SUPABASE_URL}/storage/v1/object/photos/${uniqueName}`;
+    
+    const response = await fetch(uploadUrl, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'apikey': SUPABASE_ANON_KEY,
+        'Content-Type': file.type,
+        'x-upsert': 'true'
+      },
+      body: file
+    });
 
-    console.log('Storage result:', storageData, storageError);
+    console.log('Upload response status:', response.status);
 
-    if (storageError) return { success: false, error: storageError.message };
+    if (!response.ok) {
+      const err = await response.text();
+      console.log('Upload error:', err);
+      return { success: false, error: `Upload failed: ${response.status}` };
+    }
 
-    const { data: urlData } = db.storage.from('photos').getPublicUrl(uniqueName);
-    const fileUrl = urlData.publicUrl;
+    const fileUrl = `${SUPABASE_URL}/storage/v1/object/public/photos/${uniqueName}`;
     console.log('File URL:', fileUrl);
 
     const { error: dbError } = await db
@@ -153,7 +159,6 @@ async function getPhotos(clientId = null) {
 
 async function removePhoto(id) {
   try {
-    // Get file info first
     const { data: photo } = await db
       .from('photos')
       .select('file_url, client_id, file_name')
@@ -161,7 +166,6 @@ async function removePhoto(id) {
       .single();
 
     if (photo) {
-      // Remove from storage
       const path = `${photo.client_id}/${photo.file_url.split('/').pop()}`;
       await db.storage.from('photos').remove([path]);
     }
