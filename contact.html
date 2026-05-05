@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Tyrell Images</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="top-nav">
+    <a href="index.html" class="nav-logo">Tyrell Images</a>
+    <div class="menu-toggle" id="menuToggle">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="dropdown-menu" id="dropdownMenu">
+      <a href="about.html" class="dropdown-item">About Us</a>
+      <div class="dropdown-divider"></div>
+      <a href="contact.html" class="dropdown-item active">Contact Us</a>
+      <div class="dropdown-divider"></div>
+      <a href="client-login.html" class="dropdown-item">
+        <span class="item-icon">📷</span> Client Login
+        <span class="item-badge">Soon</span>
+      </a>
+      <div class="dropdown-divider"></div>
+      <a href="photographer-login.html" class="dropdown-item">
+        <span class="item-icon">🎞️</span> Photographer Login
+        <span class="item-badge">Soon</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <header class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-line"></div>
+      <h1 class="page-hero-title">Contact Us</h1>
+      <p class="page-hero-sub">Let's create something beautiful together</p>
+      <div class="page-hero-line"></div>
+    </div>
+  </header>
+
+  <!-- CONTACT CONTENT -->
+  <section class="contact-section">
+
+    <!-- Left: Info -->
+    <div class="contact-info">
+      <p class="section-label">Get In Touch</p>
+      <h2 class="section-title">Book Your<br><em>Session</em></h2>
+      <p class="info-body">
+        Ready to capture your special moments? Reach out and we'll get back to you within 24 hours to discuss your needs and availability.
+      </p>
+
+      <div class="info-items">
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div>
+            <p class="info-label">Location</p>
+            <p class="info-value">Harare, Zimbabwe</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📱</div>
+          <div>
+            <p class="info-label">WhatsApp / Phone</p>
+            <p class="info-value">+263 XX XXX XXXX</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🕐</div>
+          <div>
+            <p class="info-label">Response Time</p>
+            <p class="info-value">Within 24 hours</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📸</div>
+          <div>
+            <p class="info-label">Services</p>
+            <p class="info-value">Weddings · Outdoor · Events · Portraits</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-note">
+        <div class="contact-note-line"></div>
+        <p>Messages go directly to our WhatsApp — no email, no waiting.</p>
+      </div>
+    </div>
+
+    <!-- Right: Form -->
+    <div class="contact-form-wrap">
+      <div class="form-header">
+        <p class="form-title">Send a Message</p>
+        <p class="form-sub">We'll reply on WhatsApp</p>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Your Name *</label>
+          <input type="text" class="form-input" id="contactName" placeholder="John Doe" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number *</label>
+          <input type="tel" class="form-input" id="contactPhone" placeholder="+263 77 123 4567" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Service Needed *</label>
+        <select class="form-input form-select" id="contactService">
+          <option value="">Select a service...</option>
+          <option value="Wedding Photography">Wedding Photography</option>
+          <option value="Outdoor Photography">Outdoor Photography</option>
+          <option value="Event Photography">Event Photography</option>
+          <option value="Portrait Session">Portrait Session</option>
+          <option value="Family Photography">Family Photography</option>
+          <option value="Commercial Photography">Commercial Photography</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Preferred Date</label>
+        <input type="date" class="form-input" id="contactDate" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Your Message</label>
+        <textarea class="form-input form-textarea" id="contactMessage" placeholder="Tell us about your shoot — location, details, special requests..."></textarea>
+      </div>
+
+      <button class="submit-btn" onclick="sendWhatsApp()">
+        <span class="btn-text">Send via WhatsApp</span>
+        <span class="btn-icon">→</span>
+      </button>
+
+      <div class="toast" id="toast">Opening WhatsApp... 📱</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p class="footer-logo">Tyrell Images</p>
+    <p class="footer-copy">© 2026 Tyrell Images · Zimbabwe · All rights reserved</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    function sendWhatsApp() {
+      const name    = document.getElementById('contactName').value.trim();
+      const phone   = document.getElementById('contactPhone').value.trim();
+      const service = document.getElementById('contactService').value;
+      const date    = document.getElementById('contactDate').value;
+      const message = document.getElementById('contactMessage').value.trim();
+
+      if (!name || !phone || !service) {
+        alert('Please fill in your name, phone number and service.');
+        return;
+      }
+
+      // Replace with actual WhatsApp number (no + or spaces)
+      const waNumber = '263XXXXXXXXX';
+
+      const text =
+        `Hello Tyrell Images! 👋\n\n` +
+        `*New Enquiry from Website*\n` +
+        `━━━━━━━━━━━━━━━━\n` +
+        `👤 Name: ${name}\n` +
+        `📞 Phone: ${phone}\n` +
+        `📸 Service: ${service}\n` +
+        `📅 Date: ${date || 'Not specified'}\n` +
+        `💬 Message: ${message || 'No additional message'}\n` +
+        `━━━━━━━━━━━━━━━━\n` +
+        `Sent from tyrellimages.com`;
+
+      const url = `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+  </script>
+</body>
+</html>

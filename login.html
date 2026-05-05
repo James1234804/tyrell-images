@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — Tyrell Images</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body class="login-page">
+
+  <div class="login-split">
+    <!-- Left: Image Panel -->
+    <div class="login-visual">
+      <div class="login-visual-bg"></div>
+      <div class="login-visual-overlay"></div>
+      <div class="login-brand">
+        <div class="brand-logo">TI</div>
+        <h1>Tyrell Images</h1>
+        <p>Your memories, beautifully preserved.</p>
+      </div>
+    </div>
+
+    <!-- Right: Form Panel -->
+    <div class="login-form-panel">
+      <div class="login-form-wrap">
+        <h2>Welcome Back</h2>
+        <p class="login-sub">Sign in to access your dashboard</p>
+
+        <div class="role-toggle">
+          <button class="role-btn active" onclick="setRole('client')" id="btn-client">Client</button>
+          <button class="role-btn" onclick="setRole('photographer')" id="btn-photographer">Photographer</button>
+        </div>
+
+        <div id="error-msg" class="error-msg hidden"></div>
+
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="username" placeholder="Enter your username" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="password" placeholder="Enter your password" />
+        </div>
+
+        <button class="btn-submit" onclick="handleLogin()">
+          <span id="btn-text">Sign In</span>
+          <span id="btn-loader" class="hidden">Loading...</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="dashboard.js"></script>
+  <script>
+    let currentRole = 'client';
+
+    function setRole(role) {
+      currentRole = role;
+      document.getElementById('btn-client').classList.toggle('active', role === 'client');
+      document.getElementById('btn-photographer').classList.toggle('active', role === 'photographer');
+    }
+
+    async function handleLogin() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const errEl = document.getElementById('error-msg');
+      const btnText = document.getElementById('btn-text');
+      const btnLoader = document.getElementById('btn-loader');
+
+      errEl.classList.add('hidden');
+      if (!username || !password) {
+        errEl.textContent = 'Please enter username and password.';
+        errEl.classList.remove('hidden');
+        return;
+      }
+
+      btnText.classList.add('hidden');
+      btnLoader.classList.remove('hidden');
+
+      if (currentRole === 'photographer') {
+        // Hardcoded photographer login
+        if (username === 'tyrellphotog' && password === 'tyrell2024') {
+          sessionStorage.setItem('role', 'photographer');
+          sessionStorage.setItem('username', username);
+          window.location.href = 'photographer-dashboard.html';
+        } else {
+          errEl.textContent = 'Invalid photographer credentials.';
+          errEl.classList.remove('hidden');
+        }
+      } else {
+        // Client login via Supabase
+        const result = await loginClient(username, password);
+        if (result.success) {
+          sessionStorage.setItem('role', 'client');
+          sessionStorage.setItem('clientId', result.client.id);
+          sessionStorage.setItem('clientName', result.client.name);
+          window.location.href = 'client-dashboard.html';
+        } else {
+          errEl.textContent = result.error || 'Invalid username or password.';
+          errEl.classList.remove('hidden');
+        }
+      }
+
+      btnText.classList.remove('hidden');
+      btnLoader.classList.add('hidden');
+    }
+
+    // Allow Enter key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') handleLogin();
+    });
+  </script>
+</body>
+</html>
