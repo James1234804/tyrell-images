@@ -168,9 +168,8 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 28px;
-  padding: 80px 40px 64px;
+  justify-content: space-between;
+  padding: 52px 40px 64px;
 }
 
 /* ── LOGO ── */
@@ -220,13 +219,13 @@ html, body {
 
 .tagline-line {
   width: 1px;
-  height: 40px;
+  height: 50px;
   background: linear-gradient(to bottom, transparent, var(--blue-light));
 }
 
 .tagline {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
   font-style: italic;
   font-weight: 300;
   color: var(--off-white);
@@ -319,69 +318,59 @@ html, body {
 /* ── RESPONSIVE ── */
 @media (max-width: 600px) {
   .hero-content {
-    justify-content: center;
-    gap: 20px;
-    padding: 70px 24px 40px;
+    padding: 28px 24px 48px;
+    justify-content: flex-start;
+    gap: 0;
+  }
+
+  .logo-wrap {
+    margin-top: 18vh;
+    gap: 8px;
+  }
+
+  .logo-mark {
+    width: 36px;
+    margin-bottom: 8px;
   }
 
   .logo-name {
-    font-size: 1.8rem;
-    letter-spacing: 0.18em;
+    font-size: 2.6rem;
+    letter-spacing: 0.2em;
   }
 
   .logo-sub {
     font-size: 0.6rem;
-    letter-spacing: 0.3em;
-  }
-
-  .logo-mark {
-    margin-bottom: 6px;
-  }
-
-  .tagline-line {
-    height: 28px;
-  }
-
-  .tagline {
-    font-size: 1rem;
-    letter-spacing: 0.08em;
-    padding: 0 12px;
+    letter-spacing: 0.35em;
   }
 
   .tagline-wrap {
-    gap: 8px;
+    margin-top: auto;
+    gap: 10px;
+  }
+
+  .tagline-line {
+    height: 35px;
+  }
+
+  .tagline {
+    font-size: 1.1rem;
   }
 
   .nav-buttons {
     flex-direction: column;
     gap: 12px;
-    width: 80%;
+    width: 85%;
+    margin-top: 20px;
   }
 
   .nav-btn {
     justify-content: center;
-    padding: 13px 20px;
+    padding: 13px 24px;
     font-size: 0.68rem;
-    letter-spacing: 0.25em;
   }
 
   .top-nav {
     top: 20px;
     right: 20px;
-  }
-}
-
-@media (max-width: 380px) {
-  .logo-name {
-    font-size: 1.5rem;
-    letter-spacing: 0.12em;
-  }
-
-  .tagline {
-    font-size: 0.92rem;
-  }
-
-  .nav-buttons {
-    width: 90%;
   }
 }
