@@ -1,4 +1,4 @@
- /* ── RESET & BASE ── */
+/* ── RESET & BASE ── */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -318,33 +318,50 @@ html, body {
 /* ── RESPONSIVE ── */
 @media (max-width: 600px) {
   .hero-content {
-    padding: 30px 24px 52px;
-    justify-content: space-between;
+    padding: 0 24px 0;
+    justify-content: center;
+    gap: 18px;
   }
 
   .logo-wrap {
-    margin-top: 6vh;
-    gap: 6px;
+    gap: 14px;
+  }
+
+  .logo-mark {
+    width: 40px;
+    margin-bottom: 4px;
   }
 
   .logo-name {
-    font-size: 2.4rem;
-    letter-spacing: 0.2em;
+    font-size: 2.8rem;
+    letter-spacing: 0.28em;
   }
 
   .logo-sub {
-    font-size: 0.62rem;
-    letter-spacing: 0.38em;
+    font-size: 0.68rem;
+    letter-spacing: 0.42em;
+  }
+
+  .tagline-wrap {
+    gap: 14px;
+  }
+
+  .tagline-line {
+    height: 36px;
   }
 
   .tagline {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
   }
 
   .nav-buttons {
+    position: absolute;
+    bottom: 52px;
+    left: 24px;
+    right: 24px;
     flex-direction: column;
     gap: 14px;
-    width: 100%;
   }
 
   .nav-btn {
