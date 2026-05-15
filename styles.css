@@ -317,53 +317,33 @@ html, body {
 
 /* ── MOBILE ── */
 @media (max-width: 768px) {
-  html, body {
-    overflow: hidden;
-  }
-
   .hero-content {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 80px 24px 60px;
     justify-content: center;
-    gap: 0;
+    align-items: center;
+    gap: 28px;
   }
 
   .logo-wrap {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -60%);
-    width: 100%;
     text-align: center;
-    animation: fadeDown 1s 0.3s ease forwards;
+    align-items: center;
   }
 
   .logo-name {
     font-size: 2.2rem;
     letter-spacing: 0.2em;
+    text-align: center;
   }
 
   .logo-sub {
     font-size: 0.6rem;
     letter-spacing: 0.35em;
-    margin-top: 4px;
+    text-align: center;
   }
 
   .tagline-wrap {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, 20%);
-    width: 100%;
+    align-items: center;
     text-align: center;
-    animation: fadeUp 1s 0.7s ease forwards;
   }
 
   .tagline-line {
@@ -372,18 +352,14 @@ html, body {
 
   .tagline {
     font-size: 0.95rem;
-    padding: 0 24px;
+    text-align: center;
   }
 
   .nav-buttons {
-    position: absolute;
-    bottom: 60px;
-    left: 50%;
-    transform: translateX(-50%);
     flex-direction: column;
     gap: 12px;
-    width: calc(100% - 48px);
-    animation: fadeUp 1s 1s ease forwards;
+    width: 100%;
+    align-items: center;
   }
 
   .nav-btn {
