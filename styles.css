@@ -315,58 +315,39 @@ html, body {
   to   { opacity: 0.7; }
 }
 
-/* ── RESPONSIVE ── */
 @media (max-width: 600px) {
   .hero-content {
-    padding: 0 24px 0;
-    justify-content: center;
-    gap: 18px;
-  }
-
-  .logo-wrap {
-    gap: 14px;
-  }
-
-  .logo-mark {
-    width: 40px;
-    margin-bottom: 4px;
+    padding: 20px 24px 36px;
+    justify-content: space-between;
   }
 
   .logo-name {
-    font-size: 2.8rem;
-    letter-spacing: 0.28em;
+    font-size: 2.3rem;
+    letter-spacing: 0.22em;
   }
 
   .logo-sub {
-    font-size: 0.68rem;
-    letter-spacing: 0.42em;
-  }
-
-  .tagline-wrap {
-    gap: 14px;
+    font-size: 0.65rem;
+    letter-spacing: 0.38em;
   }
 
   .tagline-line {
-    height: 36px;
+    height: 28px;
   }
 
   .tagline {
-    font-size: 1.1rem;
-    letter-spacing: 0.1em;
+    font-size: 1rem;
   }
 
   .nav-buttons {
-    position: absolute;
-    bottom: 52px;
-    left: 24px;
-    right: 24px;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
+    width: 100%;
   }
 
   .nav-btn {
     justify-content: center;
-    padding: 14px 24px;
+    padding: 13px 24px;
   }
 
   .top-nav {
