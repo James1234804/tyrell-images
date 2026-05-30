@@ -317,8 +317,12 @@ html, body {
 
 /* ── MOBILE ── */
 @media (max-width: 768px) {
+  html, body {
+    overflow: hidden;
+  }
+
   .hero-content {
-    padding: 0 24px 60px;
+    padding: 90px 20px 70px;
     justify-content: space-between;
     align-items: center;
   }
@@ -326,18 +330,19 @@ html, body {
   .logo-wrap {
     text-align: center;
     align-items: center;
-    margin-top: 28px;
+    margin-top: 0;
   }
 
   .logo-name {
-    font-size: 4rem;
-    letter-spacing: 0.15em;
+    font-size: clamp(1.6rem, 7vw, 2.4rem);
+    letter-spacing: 0.18em;
     text-align: center;
+    white-space: nowrap;
   }
 
   .logo-sub {
-    font-size: 0.85rem;
-    letter-spacing: 0.35em;
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
     text-align: center;
   }
 
@@ -347,26 +352,28 @@ html, body {
   }
 
   .tagline-line {
-    height: 20px;
+    height: 24px;
   }
 
   .tagline {
-    font-size: 1.15rem;
+    font-size: 1rem;
     text-align: center;
   }
 
   .nav-buttons {
     flex-direction: row;
-    gap: 14px;
+    gap: 12px;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
+    width: 100%;
   }
 
   .nav-btn {
     justify-content: center;
-    padding: 13px 28px;
+    padding: 12px 20px;
     width: auto;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
     text-align: center;
   }
 
@@ -374,4 +381,9 @@ html, body {
     top: 20px;
     right: 20px;
   }
+
+  .corner-tl { top: 12px; left: 12px; }
+  .corner-tr { top: 12px; right: 12px; }
+  .corner-bl { bottom: 12px; left: 12px; }
+  .corner-br { bottom: 12px; right: 12px; }
 }
