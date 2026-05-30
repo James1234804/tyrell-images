@@ -330,13 +330,13 @@ html, body {
   }
 
   .logo-name {
-    font-size: 2.2rem;
+    font-size: 2.8rem;
     letter-spacing: 0.2em;
     text-align: center;
   }
 
   .logo-sub {
-    font-size: 0.6rem;
+    font-size: 0.75rem;
     letter-spacing: 0.35em;
     text-align: center;
   }
@@ -351,21 +351,20 @@ html, body {
   }
 
   .tagline {
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     text-align: center;
   }
 
   .nav-buttons {
     flex-direction: column;
     gap: 12px;
-    width: 100%;
     align-items: center;
   }
 
   .nav-btn {
     justify-content: center;
-    padding: 14px 24px;
-    width: 100%;
+    padding: 14px 40px;
+    width: auto;
     text-align: center;
   }
 
