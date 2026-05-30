@@ -318,26 +318,25 @@ html, body {
 /* ── MOBILE ── */
 @media (max-width: 768px) {
   .hero-content {
-    padding: 50px 24px 60px;
-    justify-content: center;
+    padding: 0 24px 60px;
+    justify-content: space-between;
     align-items: center;
-    gap: 20px;
   }
 
   .logo-wrap {
     text-align: center;
     align-items: center;
-    margin-top: -40px;
+    margin-top: 28px;
   }
 
   .logo-name {
-    font-size: 3.2rem;
-    letter-spacing: 0.2em;
+    font-size: 4rem;
+    letter-spacing: 0.15em;
     text-align: center;
   }
 
   .logo-sub {
-    font-size: 0.78rem;
+    font-size: 0.85rem;
     letter-spacing: 0.35em;
     text-align: center;
   }
@@ -361,6 +360,7 @@ html, body {
     gap: 14px;
     align-items: center;
     justify-content: center;
+    margin-bottom: 10px;
   }
 
   .nav-btn {
