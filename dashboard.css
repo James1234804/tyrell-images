@@ -1,4 +1,4 @@
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+ *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
   --bg: #0C0C0C;
@@ -223,6 +223,7 @@ body {
   min-height: 100vh;
 }
 
+/* ── Sidebar (desktop) ── */
 .sidebar {
   width: var(--sidebar-w);
   background: var(--bg2);
@@ -231,7 +232,8 @@ body {
   flex-direction: column;
   position: fixed;
   top: 0; left: 0; bottom: 0;
-  z-index: 50;
+  z-index: 200;
+  transition: transform 0.3s ease;
 }
 
 .sidebar-brand {
@@ -323,6 +325,71 @@ body {
   color: var(--red);
 }
 
+/* ── Mobile topbar ── */
+.mobile-topbar {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 56px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.2rem;
+  z-index: 300;
+}
+
+.mobile-topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.mobile-topbar-brand span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--white);
+  letter-spacing: 0.05em;
+}
+
+.burger-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 4px;
+}
+
+.burger-btn span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  transition: all 0.3s;
+}
+
+.burger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger-btn.open span:nth-child(2) { opacity: 0; }
+.burger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Drawer overlay ── */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 150;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.sidebar-overlay.visible {
+  opacity: 1;
+}
+
+/* ── Main content ── */
 .dash-main {
   margin-left: var(--sidebar-w);
   flex: 1;
@@ -365,6 +432,8 @@ body {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.2rem;
+  flex-wrap: wrap;
+  gap: 0.8rem;
 }
 
 .card-header h3 {
@@ -399,6 +468,7 @@ body {
   gap: 1rem;
   padding: 0.9rem 0;
   border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
 }
 
 .client-row:last-child { border-bottom: none; }
@@ -421,6 +491,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
+  min-width: 120px;
 }
 
 .client-info strong {
@@ -437,6 +508,7 @@ body {
 .client-actions {
   display: flex;
   gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 /* =====================
@@ -710,22 +782,6 @@ body {
   justify-content: center;
 }
 
-.lightbox-backdrop {
-  position: absolute;
-  inset: 0;
-}
-
-.lightbox-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  max-width: 90vw;
-  max-height: 90vh;
-}
-
 .lightbox img {
   max-width: 85vw;
   max-height: 75vh;
@@ -735,9 +791,9 @@ body {
 }
 
 .lightbox-close {
-  position: absolute;
-  top: -1rem;
-  right: -1rem;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
   background: var(--bg2);
   border: 1px solid var(--border);
   color: var(--text);
@@ -749,22 +805,15 @@ body {
   align-items: center;
   justify-content: center;
   transition: border-color 0.2s;
-  z-index: 3;
+  z-index: 1001;
 }
 
 .lightbox-close:hover { border-color: var(--red); color: var(--red); }
 
-.lightbox-controls {
-  display: flex;
-  gap: 1rem;
-}
-
 /* =====================
    CLIENT DASHBOARD
 ===================== */
-.client-dash {
-  display: block;
-}
+.client-dash { display: block; }
 
 .client-header {
   position: fixed;
@@ -845,9 +894,7 @@ body {
   gap: 1.2rem;
 }
 
-.client-photo-card {
-  cursor: pointer;
-}
+.client-photo-card { cursor: pointer; }
 
 .photo-img-wrap {
   position: relative;
@@ -879,13 +926,54 @@ body {
 .hidden { display: none !important; }
 
 /* =====================
-   RESPONSIVE
+   RESPONSIVE — MOBILE
 ===================== */
 @media (max-width: 768px) {
+
+  /* Login */
   .login-split { grid-template-columns: 1fr; }
   .login-visual { display: none; }
-  .sidebar { width: 100%; height: auto; position: relative; flex-direction: row; flex-wrap: wrap; }
-  .dash-main { margin-left: 0; padding: 1.5rem; }
+
+  /* Show mobile topbar */
+  .mobile-topbar { display: flex; }
+
+  /* Show overlay element (JS controls visibility class) */
+  .sidebar-overlay { display: block; pointer-events: none; }
+  .sidebar-overlay.visible { pointer-events: all; }
+
+  /* Sidebar becomes a drawer */
+  .sidebar {
+    width: 260px;
+    top: 0;
+    transform: translateX(-100%);
+    z-index: 250;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* Push main down for topbar */
+  .dash-main {
+    margin-left: 0;
+    padding: 1.2rem;
+    padding-top: calc(56px + 1.2rem);
+  }
+
+  /* Form stacks */
   .form-row { grid-template-columns: 1fr; }
+
+  /* Smaller photo grid */
   .photos-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+
+  /* Upload zone less padding on mobile */
+  .upload-zone { padding: 2rem 1rem; }
+
+  /* Card padding */
+  .card { padding: 1rem; }
+}
+
+@media (max-width: 400px) {
+  .photos-grid { grid-template-columns: 1fr 1fr; }
+  .client-actions { flex-wrap: wrap; }
 }
