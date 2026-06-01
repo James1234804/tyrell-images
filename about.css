@@ -257,7 +257,7 @@ body {
 }
 .service-card:hover::before { height: 100%; }
 .service-card:hover { background: var(--mid); transform: translateY(-4px); }
-.service-icon { font-size: 1.8rem; margin-bottom: 18px; }
+.service-icon { font-size: 1.6rem; margin-bottom: 18px; color: var(--blue); }
 .service-name {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.3rem;
